@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/PS.SharePoint.Core.Test/obj
+/PS.SharePoint.Core.Api.Test/obj
+/PS.SharePoint.Core.Api.Test/appsettings.Development.json
+/PS.SharePoint.Test/bin/Debug
+/PS.SharePoint.Test/obj
+/PS.SharePoint.Core.Api.Test/bin/Debug/net6.0
