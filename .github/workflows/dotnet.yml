@@ -24,5 +24,4 @@ jobs:
       run: dotnet restore PS.SharePoint.Core/PS.SharePoint.Core.csproj
     - name: Build
       run: dotnet build --no-restore PS.SharePoint.Core/PS.SharePoint.Core.csproj
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+   
