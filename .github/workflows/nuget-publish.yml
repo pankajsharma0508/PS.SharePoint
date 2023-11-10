@@ -13,17 +13,17 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '5.0.x'
+        dotnet-version: '6.0.x'
 
     - name: Build and Publish
       run: |
-        dotnet restore
-        dotnet build --configuration Release
+        dotnet restore PS.SharePoint.Core/PS.SharePoint.Core.csproj
+        dotnet build --no-restore PS.SharePoint.Core/PS.SharePoint.Core.csproj --configuration Release
         dotnet pack --configuration Release --no-build --output nupkg
         dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
       env:
