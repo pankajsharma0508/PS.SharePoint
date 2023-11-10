@@ -24,4 +24,6 @@ jobs:
       run: dotnet restore PS.SharePoint.Core/PS.SharePoint.Core.csproj
     - name: Build
       run: dotnet build --no-restore PS.SharePoint.Core/PS.SharePoint.Core.csproj
+    - name: Package
+      run: dotnet pack --configuration Release
    
