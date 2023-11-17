@@ -22,7 +22,7 @@ jobs:
 
     - name: Restore Dependenacies
       run: dotnet restore PS.SharePoint.Core/PS.SharePoint.Core.csproj
-    - name : Build
+    - name : Build Assemblies
       run: dotnet build --no-restore PS.SharePoint.Core/PS.SharePoint.Core.csproj --configuration Release
     - name: Create Nuget Package
       run: dotnet pack --configuration Release --no-build --output nupkg
