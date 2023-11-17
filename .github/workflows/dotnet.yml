@@ -16,11 +16,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET
+    - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore PS.SharePoint.Core/PS.SharePoint.Core.csproj
     - name: Build
-      run: dotnet build --no-restore PS.SharePoint.Core/PS.SharePoint.Core.csproj
+      run: dotnet build --configuration Release
+      working-directory: PS.SharePoint.Core
