@@ -243,7 +243,7 @@ namespace PS.SharePoint.Core.Helpers
                     return ResolveSpUser(spUser, stringUserValue, regionName);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Logger.Error(ex, $"User not found for following lookupId/UserName:{userLookupId}");
                 return null;

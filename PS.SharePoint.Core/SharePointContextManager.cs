@@ -3,13 +3,15 @@ using PS.SharePoint.Core.Entities;
 using PS.SharePoint.Core.Interfaces;
 using System.Runtime.InteropServices;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Collections.Generic;
+
+#if NETSTANDARD1_0_OR_GREATER
+using System.Text.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Collections.Generic;
-using System.Text.Json;
+#endif
 
 namespace PS.SharePoint.Core
 {
@@ -20,8 +22,6 @@ namespace PS.SharePoint.Core
         {
             Configuration = configuration;
         }
-
-        private HttpWebRequest _webReq = null;
 
         public void ExecuteQuery(string message, Action<ClientContext> action)
         {
@@ -60,12 +60,17 @@ namespace PS.SharePoint.Core
         private ClientContext GetClientContext()
         {
             var ctx = new ClientContext(new Uri(this.Configuration.SharePointUrl));
+
+        #if NETSTANDARD1_0_OR_GREATER
             if (!RuntimeInformation.FrameworkDescription.Contains(".NET Framework"))
             {
                 ctx.ExecutingWebRequest += new EventHandler<WebRequestEventArgs>(AddWindowsAuthRequestHeader);
             }
+        #endif
             return ctx;
         }
+
+        #if NETSTANDARD1_0_OR_GREATER
 
         private void AddWindowsAuthRequestHeader(object sender, WebRequestEventArgs e)
         {
@@ -105,7 +110,12 @@ namespace PS.SharePoint.Core
 
             return sharePointResp?.FormDigestValue ?? throw new Exception("Failed to extract FormDigestValue");
         }
+
+        #endif
+
     }
+
+#if NETSTANDARD1_0_OR_GREATER
     public class DigestRoot
     {
         public string odatametadata { get; set; }
@@ -116,4 +126,7 @@ namespace PS.SharePoint.Core
         public List<string> SupportedSchemaVersions { get; set; }
         public string WebFullUrl { get; set; }
     }
+
+#endif
+
 }
